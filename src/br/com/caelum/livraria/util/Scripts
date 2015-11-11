@@ -1,0 +1,15 @@
+*LEVANTA SERVIDOR HSQLDB
+cd workspaceEE\livraria\bco
+java -cp ..\WebContent\WEB-INF\lib\hsqldb.jar org.hsqldb.server.Server --database.0 file:livraria --dbname.0 livraria
+
+*EXECUTE CLIENTE HSQLDB
+cd workspaceEE\livraria\bco
+java -cp ..\WebContent\WEB-INF\lib\hsqldb.jar org.hsqldb.util.DatabaseManager
+
+*LIMPA TABELAS
+DELETE FROM livro;
+DELETE FROM autor;
+
+*DROPA TABELAS
+DROP TABLE livro;
+DROP TABLE autor;
