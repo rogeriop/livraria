@@ -66,42 +66,58 @@
 				<p:dataTable value="#{livroBean.autoresDoLivro}" var="autor"
 					id="tabelaAutores" emptyMessage="Nenhum autor associado">
 					<p:column>
+						<f:facet name="header">Nome</f:facet>
 						<h:outputText value="#{autor.nome}" />
 					</p:column>
+					<p:column>
+						<f:facet name="header">Remover</f:facet>
+						<h:commandLink value="X" action="#{livroBean.removerAutorDoLivro(autor)}" />	
+					</p:column>
+
+
 				</p:dataTable>
 
 			</p:fieldset>
 
 			<p:commandButton value="Gravar" action="#{livroBean.gravar}"
-				process="@form" update="@form :tabelaLivros" />
+				process="@form" update="@form :formTabelaLivros:tabelaLivros" />
 
 		</h:form>
-		<p:dataTable value="#{livroBean.livros}" var="livro" id="tabelaLivros"
-			paginator="true" rows="4">
+		<h:form id="formTabelaLivros">
+			<p:dataTable value="#{livroBean.livros}" var="livro"
+				id="tabelaLivros" paginator="true" rows="4">
 
-			<p:column>
-				<f:facet name="header">Título</f:facet>
-				<h:outputText value="#{livro.titulo}" />
-			</p:column>
+				<p:column>
+					<f:facet name="header">Título</f:facet>
+					<h:outputText value="#{livro.titulo}" />
+				</p:column>
 
-			<p:column>
-				<f:facet name="header">ISBN</f:facet>
-				<h:outputText value="#{livro.isbn}"></h:outputText>
-			</p:column>
+				<p:column>
+					<f:facet name="header">ISBN</f:facet>
+					<h:outputText value="#{livro.isbn}"></h:outputText>
+				</p:column>
 
-			<p:column>
-				<f:facet name="header">Preço</f:facet>
-				<h:outputText value="#{livro.preco}"></h:outputText>
-			</p:column>
+				<p:column>
+					<f:facet name="header">Preço</f:facet>
+					<h:outputText value="#{livro.preco}"></h:outputText>
+				</p:column>
 
-			<p:column>
-				<f:facet name="header">Data</f:facet>
-				<h:outputText value="#{livro.dataLancamento.time}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-				</h:outputText>
-			</p:column>
-
-		</p:dataTable>
+				<p:column>
+					<f:facet name="header">Data</f:facet>
+					<h:outputText value="#{livro.dataLancamento.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+					</h:outputText>
+				</p:column>
+​				<p:column>
+					<f:facet name="header">Alterar</f:facet>
+					<h:commandLink value="Altera" action="#{livroBean.caregar(livro)}" />
+				</p:column> 
+				<p:column>
+					<f:facet name="header">Remover</f:facet>
+					<h:commandLink value="Remove" action="#{livroBean.remover(livro)}" />
+				</p:column> 
+			</p:dataTable>
+		</h:form>
 	</ui:define>
 
 </ui:composition>

@@ -17,11 +17,11 @@ import br.com.caelum.livraria.modelo.Livro;
 @ViewScoped
 @ManagedBean
 public class LivroBean implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private Livro livro = new Livro();
 	private Integer autorId;
-	
+
 	public Livro getLivro() {
 		return livro;
 	}
@@ -37,11 +37,11 @@ public class LivroBean implements Serializable {
 	public List<Autor> getAutores() {
 		return new DAO<Autor>(Autor.class).listaTodos();
 	}
-	
+
 	public List<Autor> getAutoresDoLivro() {
 		return this.livro.getAutores();
 	}
-	
+
 	public List<Livro> getLivros() {
 		return new DAO<Livro>(Livro.class).listaTodos();
 	}
@@ -50,27 +50,45 @@ public class LivroBean implements Serializable {
 		Autor autor = new DAO<Autor>(Autor.class).buscaPorId(this.autorId);
 		this.livro.adicionaAutor(autor);
 	}
-	
+
 	public void gravar() {
 		System.out.println("Gravando livro " + this.livro.getTitulo());
 
 		if (livro.getAutores().isEmpty()) {
-			//throw new RuntimeException("Livro deve ter pelo menos um Autor.");
-			FacesContext.getCurrentInstance().addMessage("autor", new FacesMessage("Livro deve ter pelo menos um Autor."));
+			// throw new RuntimeException("Livro deve ter pelo menos um
+			// Autor.");
+			FacesContext.getCurrentInstance().addMessage("autor",
+					new FacesMessage("Livro deve ter pelo menos um Autor."));
 			return;
 		}
 
-		new DAO<Livro>(Livro.class).adiciona(this.livro);
+		if (this.livro.getId() == null) {
+			new DAO<Livro>(Livro.class).adiciona(this.livro);
+		} else {
+			new DAO<Livro>(Livro.class).atualiza(this.livro);
+		}
 		this.livro = new Livro();
 	}
-	
-	
+
+	public void caregar(Livro livro) {
+		System.out.println("Carregando livro " + livro.getTitulo());
+		this.livro = livro;
+	}
+
+	public void remover(Livro livro) {
+		System.out.println("Removendo livro " + livro.getTitulo());
+		new DAO<Livro>(Livro.class).remove(livro);
+	}
+
 	public void comecaComDigitoUm(FacesContext fc, UIComponent component, Object value) throws ValidatorException {
 		String valor = value.toString();
-		if (!valor.startsWith("1"))		{
-			throw new ValidatorException(new FacesMessage("Deveria começar com 1"));
-			
+		if (!valor.startsWith("1")) {
+			throw new ValidatorException(new FacesMessage("Deveria comeï¿½ar com 1"));
+
 		}
 	}
 
+	public void removerAutorDoLivro(Autor autor) {
+		this.livro.removeAutor(autor); 
+	}
 }
