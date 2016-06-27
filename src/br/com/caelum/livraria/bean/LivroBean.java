@@ -91,4 +91,13 @@ public class LivroBean implements Serializable {
 	public void removerAutorDoLivro(Autor autor) {
 		this.livro.removeAutor(autor); 
 	}
+	
+	public void carregaPeloId() {
+		Integer id = this.livro.getId();
+		this.livro = new DAO<Livro>(Livro.class).buscaPorId(id);
+		if (this.livro == null) {
+			this.livro = new Livro();
+		}
+	}
+	
 }

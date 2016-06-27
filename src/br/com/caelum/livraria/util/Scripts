@@ -1,12 +1,26 @@
 *LEVANTA SERVIDOR HSQLDB
+
+*NO WINDOWS
 cd workspaceEE\livraria\bco
 java -cp ..\WebContent\WEB-INF\lib\hsqldb.jar org.hsqldb.server.Server --database.0 file:livraria --dbname.0 livraria
 
+*NO UBUNTU
+cd /home/rogeriop/workspace/livraria/bco
 java -cp ../WebContent/WEB-INF/lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:livraria --dbname.0 livraria
 
 *EXECUTE CLIENTE HSQLDB
+
+**NO WINDOWS
 cd workspaceEE\livraria\bco
 java -cp ..\WebContent\WEB-INF\lib\hsqldb.jar org.hsqldb.util.DatabaseManager
+
+**NO UBUNTU
+cd workspace/livraria/bco
+java -cp ../WebContent/WEB-INF/lib/hsqldb.jar org.hsqldb.util.DatabaseManager
+
+**PREENCHER SEGUINTES DADOS
+Type: HSQL Database Engine Server
+URL: jdbc:hsqldb:hsql://localhost/livraria
 
 *LIMPA TABELAS
 DELETE FROM livro;
