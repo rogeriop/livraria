@@ -8,6 +8,10 @@
 <h:body>
 	<div id="cabecalho">
 		<h:graphicImage library="img" name="logo.png" />
+		<h:outputText value="#{sessionScope['usuario'].email}" />
+		<h:form rendered="#{usuarioLogado != null}">
+			<h:commandLink value="logout" action="#{loginBean.deslogar}"></h:commandLink>
+		</h:form>
 		<p:themeSwitcher value="#{temaBean.tema}"
 			style="position: absolute; right: 10px;">
 			<f:selectItems value="#{temaBean.temas}" />
